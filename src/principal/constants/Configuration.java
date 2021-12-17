@@ -3,16 +3,18 @@ package principal.constants;
 public class Configuration {
     public static final int WIDTH = 900;
     public static final int HEIGHT = 700;
-    public static final int FPS = 30;
+    public static final int FPS = 60;
 
     public static final int PLAYER_SPEED = 7;
     public static final int PLAYER_SIZE = 80;
+    public static final int PLAYER_TARGET_FRAMES = 5;
 
     public static final int BULLET_SPEED = 12;
     public static final int BULLET_SIZE = 15;
 
     public static final int ENEMY_SPEED = 8;
     public static final int ENEMY_SIZE = 40;
+    public static final int ENEMY_TARGET_FRAMES = 20;
     public static final int ENEMY_BULLET_SPEED = 4;
     public static final int ENEMY_LINES = 4;
     public static final int ENEMY_COLUMNS = 4;

@@ -1,8 +1,8 @@
 package principal.utils;
 
 import principal.enums.Direction;
-import principal.modelo.Enemy;
-import principal.visao.screens.World;
+import principal.models.Enemy;
+import principal.views.screens.World;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

@@ -1,19 +1,18 @@
-package principal.visao.screens;
+package principal.views.screens;
 
 import principal.constants.Configuration;
 import principal.enums.Direction;
 import principal.items.DoubleShot;
 import principal.items.Item;
 import principal.items.TeiaAranha;
-import principal.modelo.Bullet;
-import principal.modelo.Enemy;
-import principal.modelo.Player;
+import principal.models.Bullet;
+import principal.models.Enemy;
+import principal.models.Player;
 import principal.observers.MovementObserver;
 import principal.observers.ShotFiredByEnemyObserver;
 import principal.observers.ShotFiredByPlayerObserver;
 import principal.utils.KeyboardListener;
-import principal.visao.Game;
-import principal.visao.recursos.Spritesheet;
+import principal.views.helpers.image.Spritesheet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -131,6 +130,9 @@ public class World extends JPanel {
 
     public void startGame() {
         enemies.clear();
+        items.clear();
+        Enemy.bullets.clear();
+
         createEnemies();
 
         life = 3;
@@ -143,21 +145,22 @@ public class World extends JPanel {
     }
 
     public void endGame(boolean victory) {
+        game.getBackgroundMusic().stop();
+
         gameRunning = false;
+        game.setVisible(false);
         game.dispose();
         new EndScreen(victory);
     }
 
     private void update() {
         if (!pauseControl) {
-            if (life == 0) {
+
+            if (life == 0 || enemies.isEmpty()) {
                 endGame(false);
             }
 
-            if (enemies.isEmpty()) {
-                endGame(true);
-            }
-
+            player.animation.updateAnimationFrames();
             List<Bullet> playerBullets = player.getBullets();
             playerBullets.forEach(Bullet::update);
             Enemy.bullets.forEach(Bullet::update);
@@ -179,10 +182,8 @@ public class World extends JPanel {
                     Bullet bullet = playerBullets.get(j);
 
                     if (enemy.intersects(bullet)) {
-                        //pontuacao baseada na distancia
                         score += (float) enemy.y / 10.0;
 
-                        //20% de chance de dropar um item
                         if (Math.random() < 0.2) {
                             int item = generateRandomItem();
                             switch (item) {
@@ -227,24 +228,18 @@ public class World extends JPanel {
 
         g.drawImage(Spritesheet.backgroundImage, 0, 0, Configuration.WIDTH, Configuration.HEIGHT, this);
 
-        g.drawImage(Spritesheet.plater_front, player.x, player.y, player.width, player.height, null);
+        player.draw(g);
 
-        player.getBullets().forEach(bullet -> {
-            g.setColor(Color.YELLOW);
-            g.drawOval(bullet.x, bullet.y, bullet.width, bullet.height);
-        });
+        player.getBullets().forEach(bullet -> bullet.draw(g, Color.RED));
 
-        Enemy.bullets.forEach(bullet -> {
-            g.setColor(Color.CYAN);
-            g.drawOval(bullet.x, bullet.y, bullet.width, bullet.height);
-        });
+        Enemy.bullets.forEach(bullet -> bullet.draw(g, Color.CYAN));
 
-        enemies.forEach(enemy -> g.drawImage(Spritesheet.inimigo, enemy.x, enemy.y,
-                Configuration.ENEMY_SIZE, Configuration.ENEMY_SIZE, null));
+        enemies.forEach(enemy -> enemy.draw(g));
 
-        items.forEach(item -> g.drawRect(item.x, item.y, item.width, item.height));
+        items.forEach(item -> item.draw(g, item));
 
-        g.drawImage(Spritesheet.plater_front, player.x, player.y, 80, 80, null);
+        //items.forEach(item -> g.drawRect(item.x, item.y, item.width, item.height));
+
         for (int i = 0; i < life; i++) {
             g.setColor(Color.yellow);
             g.fillOval(800 + (i * 20), 650, 20, 20);

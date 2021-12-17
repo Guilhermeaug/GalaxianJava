@@ -1,6 +1,4 @@
-package principal.visao.screens;
-
-import principal.visao.Game;
+package principal.views.screens;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,11 +37,13 @@ public class EndScreen extends JFrame {
     }
 
     void restartGame(){
+        setVisible(false);
         dispose();
         new Game();
     }
 
     void endGame() {
+        setVisible(false);
         dispose();
         System.exit(0);
     }

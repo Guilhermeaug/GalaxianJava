@@ -1,6 +1,6 @@
 package principal.items;
 
-import principal.modelo.Enemy;
+import principal.models.Enemy;
 
 import java.util.Timer;
 import java.util.TimerTask;

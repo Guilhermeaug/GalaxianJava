@@ -1,6 +1,6 @@
-package principal.visao.screens;
+package principal.views.screens;
 
-import principal.visao.Game;
+import principal.views.helpers.image.Spritesheet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,12 +15,13 @@ public class SplashScreen extends JFrame {
         panel.setPreferredSize(new Dimension(300, 240));
 
         JLabel imgLabel = new JLabel();
-        imgLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/principal/visao/recursos/splash.png"))));
+        imgLabel.setIcon(new ImageIcon(Objects.requireNonNull(getClass().getResource("/resources/images/splash.png"))));
         panel.add(imgLabel);
+
+        Spritesheet.initSpritsheet();
 
         add(panel);
         pack();
-
 
         setTitle("Splash Screen");
         setLocationRelativeTo(null);
