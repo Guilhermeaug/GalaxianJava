@@ -9,7 +9,7 @@
 No projeto fornecido existe uma pasta "Executavel". Dentro da pasta há um 
 artefato .jar que pode ser executado. Para executar o projeto, basta executar o 
 comando
-````java-jar JogoGalaxian.jar````  
+````java -jar JogoGalaxian.jar````  
 É importante que o jogo seja executado no mesmo diretório da pasta src, para que a máquina virtual encontre os arquivos de imagem e sons.
 
 O projeto foi compilado usando o compilador Java 8 Eclipse-Adoptium. Caso haja problemas com a execução do programa,
